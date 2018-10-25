@@ -25,7 +25,11 @@ Rcpp::List derif(arma::mat c, arma::mat w, arma::mat d, arma::mat core, arma::uv
   
   double f; f = accu(pow(amd,2));
   
-  arma::mat W = sqrt(w.t() * core * w);
+  //arma::mat W = sqrt(w.t() * core * w);
+  arma::mat W = w.t() * core * w;
+  arma::uvec idxw = arma::find(W < 0);
+  W(idxw) = W(idxw)- W(idxw);
+  W = sqrt((W+W.t())/2);
   arma::mat M = core * w;
   
   // create some intermediate quatities

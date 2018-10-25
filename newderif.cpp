@@ -46,7 +46,7 @@ Rcpp::List derif(arma::mat c, arma::mat w, arma::mat d, arma::mat core, arma::uv
   
   for(int k = 0; k < lidx; ++k) {
     int i = idx(k)+1;
-    arma::mat a11 = invWdiag(i)*a1;
+    arma::mat a11 = invWdiag(i-1)*a1;
     //arma::mat D = a1.rows(n*(i-1),n*(i)-1) - (b1.subvec(n*(i-1),n*(i)-1)*b2.subvec(n*(i-1),n*(i)-1).t());
     arma::mat D = a11 - (b1.subvec(n*(i-1),n*(i)-1)*b2.subvec(n*(i-1),n*(i)-1).t());
     df.col(i-1) = D.t() * amd.col(i-1);
